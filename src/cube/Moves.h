@@ -5,8 +5,8 @@ enum class Move
 {
     U, Ui, U2,
     D, Di, D2,
-    L, Li, L2,
     R, Ri, R2,
+    L, Li, L2,
     F, Fi, F2,
     B, Bi, B2
 };

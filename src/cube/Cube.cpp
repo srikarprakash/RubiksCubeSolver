@@ -268,4 +268,44 @@ void Cube::reset()
     B_face = vector<char>(9, 'B');
     L_face = vector<char>(9, 'O');
     R_face = vector<char>(9, 'R');
+
+    moveHistory.clear();
+}
+
+
+void Cube::applyMove(Move move)
+{
+    switch (move)
+    {
+        case Move::U:  U();  break;
+        case Move::Ui: Ui(); break;
+        case Move::U2: U2(); break;
+
+        case Move::D:  D();  break;
+        case Move::Di: Di(); break;
+        case Move::D2: D2(); break;
+
+        case Move::R:  R();  break;
+        case Move::Ri: Ri(); break;
+        case Move::R2: R2(); break;
+
+        case Move::L:  L();  break;
+        case Move::Li: Li(); break;
+        case Move::L2: L2(); break;
+
+        case Move::F:  F();  break;
+        case Move::Fi: Fi(); break;
+        case Move::F2: F2(); break;
+
+        case Move::B:  B();  break;
+        case Move::Bi: Bi(); break;
+        case Move::B2: B2(); break;
+    }
+
+    moveHistory.push_back(move);
+}
+
+const vector<Move>& Cube::getMoveHistory() const
+{
+    return moveHistory;
 }

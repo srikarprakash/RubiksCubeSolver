@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "Moves.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ private:
     vector<char> B_face;
     vector<char> L_face;
     vector<char> R_face;
+    vector<Move> moveHistory;
 
     void rotateFaceClockwise(vector<char>& face);
 
@@ -22,7 +24,7 @@ public:
     Cube();
 
     void display() const;
-
+    void applyMove(Move move);
     // U moves
     void U();
     void Ui();
@@ -55,6 +57,8 @@ public:
 
     bool isSolved() const;
     void reset();
+
+    const vector<Move>& getMoveHistory() const;
 };
 
 #endif

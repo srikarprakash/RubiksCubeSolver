@@ -5,21 +5,13 @@ using namespace std;
 
 int main()
 {
-    Cube cube;
+Cube cube;
 
-    cube.R();
-cube.Ri();
+cube.applyMove(Move::R);
+cube.applyMove(Move::U);
+cube.applyMove(Move::F);
 
-cube.L();
-cube.Li();
-
-cube.F();
-cube.Fi();
-
-cube.B();
-cube.Bi();
-
-cout << cube.isSolved();
+cout << cube.getMoveHistory().size() << endl;
 
     return 0;
 }

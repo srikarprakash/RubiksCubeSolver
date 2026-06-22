@@ -1,6 +1,10 @@
 #ifndef MOVES_H
 #define MOVES_H
 
+#include <string>
+
+using namespace std;
+
 enum class Move
 {
     U, Ui, U2,
@@ -10,5 +14,7 @@ enum class Move
     F, Fi, F2,
     B, Bi, B2
 };
+
+string moveToString(Move move);
 
 #endif

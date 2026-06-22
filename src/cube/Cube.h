@@ -57,6 +57,7 @@ public:
 
     bool isSolved() const;
     void reset();
+    void printMoveHistory() const;
 
     const vector<Move>& getMoveHistory() const;
 };

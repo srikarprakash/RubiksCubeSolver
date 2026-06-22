@@ -9,9 +9,10 @@ Cube cube;
 
 cube.applyMove(Move::R);
 cube.applyMove(Move::U);
-cube.applyMove(Move::F);
+cube.applyMove(Move::F2);
+cube.applyMove(Move::Di);
 
-cout << cube.getMoveHistory().size() << endl;
+cube.printMoveHistory();
 
     return 0;
 }

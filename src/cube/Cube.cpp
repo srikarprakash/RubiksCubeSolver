@@ -1,4 +1,5 @@
 #include "Cube.h"
+#include "Moves.h"
 #include <iostream>
 
 using namespace std;
@@ -308,4 +309,14 @@ void Cube::applyMove(Move move)
 const vector<Move>& Cube::getMoveHistory() const
 {
     return moveHistory;
+}
+
+void Cube::printMoveHistory() const
+{
+    for (Move move : moveHistory)
+    {
+        cout << moveToString(move) << " ";
+    }
+
+    cout << endl;
 }

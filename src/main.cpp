@@ -1,24 +1,24 @@
 #include <iostream>
 
-#include "cube/Cube.h"
+#include "search/Node.h"
+#include "search/MoveGenerator.h"
 #include "cube/Moves.h"
-#include "utils/Scrambler.h"
 
 using namespace std;
 
 int main()
 {
-    Cube cube;
+    Node root;
 
-cout << "Solved State:\n";
-cout << cube.encodeState() << endl;
+root.lastMove = Move::R;
+root.depth = 1;
 
-cube.applyMove(Move::R);
-cube.applyMove(Move::U);
-cube.applyMove(Move::F);
+MoveGenerator generator;
 
-cout << "\nAfter Moves:\n";
-cout << cube.encodeState() << endl;
+vector<Node> children =
+    generator.generateChildren(root);
+
+cout << children.size() << endl;
 
     return 0;
 }

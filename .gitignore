@@ -4,3 +4,6 @@ build/
 .idea/
 CMakeFiles/
 CMakeCache.txt
+raylib/
+test.cpp
+test.exe

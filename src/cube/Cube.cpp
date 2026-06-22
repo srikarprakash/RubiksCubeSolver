@@ -334,3 +334,10 @@ string Cube::encodeState() const
 
     return state;
 }
+
+vector<char> Cube::getUFace() const { return U_face; }
+vector<char> Cube::getDFace() const { return D_face; }
+vector<char> Cube::getFFace() const { return F_face; }
+vector<char> Cube::getBFace() const { return B_face; }
+vector<char> Cube::getLFace() const { return L_face; }
+vector<char> Cube::getRFace() const { return R_face; }

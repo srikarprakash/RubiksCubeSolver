@@ -1,7 +1,7 @@
 #include <iostream>
 
+#include "search/DFS.h"
 #include "search/Node.h"
-#include "search/MoveGenerator.h"
 #include "cube/Moves.h"
 
 using namespace std;
@@ -10,15 +10,33 @@ int main()
 {
     Node root;
 
-root.lastMove = Move::R;
-root.depth = 1;
+    root.cube.applyMove(Move::R);
 
-MoveGenerator generator;
+    DFS dfs;
 
-vector<Node> children =
-    generator.generateChildren(root);
+    vector<Move> solution;
 
-cout << children.size() << endl;
+    bool found =
+        dfs.search(root,
+                   1,
+                   solution);
+
+    cout << "Found: "
+         << found
+         << endl;
+
+    if(found)
+    {
+        cout << "Solution:\n";
+
+        for(Move move : solution)
+        {
+            cout << moveToString(move)
+                 << " ";
+        }
+
+        cout << endl;
+    }
 
     return 0;
 }

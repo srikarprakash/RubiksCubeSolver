@@ -58,7 +58,12 @@ public:
     bool isSolved() const;
     void reset();
     void printMoveHistory() const;
-
+    vector<char> getUFace() const;
+    vector<char> getDFace() const;
+    vector<char> getFFace() const;
+    vector<char> getBFace() const;
+    vector<char> getLFace() const;
+    vector<char> getRFace() const;
     const vector<Move>& getMoveHistory() const;
 };
 

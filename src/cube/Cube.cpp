@@ -320,3 +320,17 @@ void Cube::printMoveHistory() const
 
     cout << endl;
 }
+
+string Cube::encodeState() const
+{
+    string state;
+
+    for(char c : U_face) state += c;
+    for(char c : D_face) state += c;
+    for(char c : F_face) state += c;
+    for(char c : B_face) state += c;
+    for(char c : L_face) state += c;
+    for(char c : R_face) state += c;
+
+    return state;
+}

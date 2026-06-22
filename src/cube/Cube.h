@@ -54,7 +54,7 @@ public:
     void B();
     void Bi();
     void B2();
-
+    string encodeState() const;
     bool isSolved() const;
     void reset();
     void printMoveHistory() const;

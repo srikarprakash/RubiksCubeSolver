@@ -1,18 +1,45 @@
-#include "cube/Cube.h"
 #include <iostream>
+
+#include "cube/Cube.h"
+#include "cube/Moves.h"
+#include "utils/Scrambler.h"
 
 using namespace std;
 
 int main()
 {
-Cube cube;
+    Cube cube;
 
-cube.applyMove(Move::R);
-cube.applyMove(Move::U);
-cube.applyMove(Move::F2);
-cube.applyMove(Move::Di);
+    Scrambler scrambler;
 
-cube.printMoveHistory();
+    vector<Move> scramble = scrambler.generateScramble(20);
+
+    cout << "Scramble:\n";
+
+    for (Move move : scramble)
+    {
+        cout << moveToString(move) << " ";
+        cube.applyMove(move);
+    }
+
+    cout << "\n\nSolved after scramble? ";
+
+    cout << (cube.isSolved() ? "YES" : "NO") << endl;
+
+    vector<Move> inverse =
+        scrambler.generateInverse(scramble);
+
+    cout << "\nInverse:\n";
+
+    for (Move move : inverse)
+    {
+        cout << moveToString(move) << " ";
+        cube.applyMove(move);
+    }
+
+    cout << "\n\nSolved after inverse? ";
+
+    cout << (cube.isSolved() ? "YES" : "NO") << endl;
 
     return 0;
 }

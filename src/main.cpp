@@ -1,60 +1,44 @@
 #include <iostream>
+#include <chrono>
 
-#include "solver/Solver.h"
-#include "search/Heuristic.h"
+#include "database/StateDatabase.h"
 
 using namespace std;
 
 int main()
 {
-    Solver solver;
+    StateDatabase db;
 
-    Cube cube;
-
-    // 10-move benchmark
-    cube.applyMove(Move::R);
-    cube.applyMove(Move::U);
-    cube.applyMove(Move::F);
-    cube.applyMove(Move::L);
-    cube.applyMove(Move::D);
-    cube.applyMove(Move::B);
-    cube.applyMove(Move::R);
-    cube.applyMove(Move::U);
-    cube.applyMove(Move::F);
-    cube.applyMove(Move::L);
-    cube.applyMove(Move::R);
-    cube.applyMove(Move::U);
-    cube.applyMove(Move::F);
-
-    Heuristic h;
+    auto start =
+        chrono::high_resolution_clock::now();
 
     cout
-        << "Misplaced Stickers: "
-        << h.misplacedStickers(cube)
+        << "Building depth 7 database...\n";
+
+    db.build(7);
+
+    auto end =
+        chrono::high_resolution_clock::now();
+
+    cout
+        << "\nStates Stored: "
+        << db.size()
         << "\n";
 
     cout
-        << "Heuristic Value: "
-        << h.misplacedStickers(cube) / 4
-        << "\n\n";
-
-    SolveResult result =
-        solver.solve(cube);
-
-    cout
-        << "Solution Length: "
-        << result.solution.size()
-        << "\n";
+        << "Build Time: "
+        << chrono::duration_cast<
+            chrono::seconds
+        >(end - start).count()
+        << " seconds\n";
 
     cout
-        << "Nodes Expanded: "
-        << result.nodesExpanded
-        << "\n";
+        << "\nSaving database7.bin...\n";
+
+    db.save("database7.bin");
 
     cout
-        << "Solve Time: "
-        << result.solveTimeMs
-        << " ms\n";
+        << "Done!\n";
 
     return 0;
 }

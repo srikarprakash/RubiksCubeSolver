@@ -1,7 +1,7 @@
 #include <iostream>
-#include <chrono>
 
 #include "database/StateDatabase.h"
+#include "solver/DatabaseSolver.h"
 
 using namespace std;
 
@@ -9,36 +9,32 @@ int main()
 {
     StateDatabase db;
 
-    auto start =
-        chrono::high_resolution_clock::now();
+    db.load("database.bin");
+
+    Cube cube;
+
+    cube.applyMove(Move::R);
+    cube.applyMove(Move::U);
+    cube.applyMove(Move::F);
+    cube.applyMove(Move::L);
+    cube.applyMove(Move::D);
+    cube.applyMove(Move::B);
+    cube.applyMove(Move::R);
+    cube.applyMove(Move::U);
+    cube.applyMove(Move::F);
+    cube.applyMove(Move::L);
+    cube.applyMove(Move::D);
+    cube.applyMove(Move::B);
+
+    DatabaseSolver solver(&db);
+
+    vector<Move> solution =
+        solver.solve(cube);
 
     cout
-        << "Building depth 7 database...\n";
-
-    db.build(7);
-
-    auto end =
-        chrono::high_resolution_clock::now();
-
-    cout
-        << "\nStates Stored: "
-        << db.size()
+        << "Solution Length: "
+        << solution.size()
         << "\n";
-
-    cout
-        << "Build Time: "
-        << chrono::duration_cast<
-            chrono::seconds
-        >(end - start).count()
-        << " seconds\n";
-
-    cout
-        << "\nSaving database7.bin...\n";
-
-    db.save("database7.bin");
-
-    cout
-        << "Done!\n";
 
     return 0;
 }

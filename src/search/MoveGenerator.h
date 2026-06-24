@@ -10,7 +10,7 @@ class MoveGenerator
 {
 public:
     vector<Node> generateChildren(const Node& node);
-    bool isInverseMove(Move a, Move b);
+    bool isValidSuccessor(Move last, Move current);
 };
 
 #endif

@@ -325,6 +325,8 @@ string Cube::encodeState() const
 {
     string state;
 
+    state.reserve(54);
+
     for(char c : U_face) state += c;
     for(char c : D_face) state += c;
     for(char c : F_face) state += c;

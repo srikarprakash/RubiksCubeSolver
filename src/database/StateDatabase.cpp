@@ -301,3 +301,34 @@ bool StateDatabase::load(
 
     return true;
 }
+
+int StateDatabase::getDistance(
+    const Cube& cube
+) const
+{
+    auto it =
+        lookup.find(
+            getKey(cube)
+        );
+
+    if(it == lookup.end())
+    {
+        return -1;
+    }
+
+    int distance = 0;
+
+    uint32_t index =
+        it->second;
+
+    while(index != 0)
+    {
+        distance++;
+
+        index =
+            entries[index]
+            .parentIndex;
+    }
+
+    return distance;
+}

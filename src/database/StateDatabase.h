@@ -34,6 +34,9 @@ public:
 
     bool save(const string& filename) const;
     bool load(const string& filename);
+    int getDistance(
+    const Cube& cube
+    ) const;
 
 private:
 

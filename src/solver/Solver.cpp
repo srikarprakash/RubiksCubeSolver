@@ -1,21 +1,48 @@
 #include "Solver.h"
 
-#include "../search/IDAStar.h"
 #include "../search/Node.h"
 
+#include <iostream>
 #include <chrono>
 
 using namespace std;
 
-SolveResult Solver::solve(const Cube& cube)
+Solver::Solver()
+    : ida(&database)
+{
+    if(database.load("database.bin"))
+    {
+        cout
+            << "Database loaded!\n";
+    }
+    else
+    {
+        cout
+            << "Building database...\n";
+
+        database.build(6);
+
+        database.save("database.bin");
+
+        cout
+            << "Database saved!\n";
+    }
+
+    cout
+        << "States: "
+        << database.size()
+        << "\n";
+}
+
+SolveResult Solver::solve(
+    const Cube& cube
+)
 {
     SolveResult result;
 
     Node root;
 
     root.cube = cube;
-
-    IDAStar ida;
 
     auto start =
         chrono::high_resolution_clock::now();
@@ -29,17 +56,24 @@ SolveResult Solver::solve(const Cube& cube)
     SearchStats stats =
         ida.getStats();
 
-    result.solution = solution;
+    result.solution =
+        solution;
 
     result.nodesExpanded =
         stats.nodesExpanded;
 
     result.solveTimeMs =
-        chrono::duration_cast<
+        chrono::duration_cast
+        <
             chrono::milliseconds
-        >(end - start).count();
+        >
+        (
+            end - start
+        ).count();
 
-    result.solved = true;
+    result.solved =
+        !solution.empty()
+        || cube.isSolved();
 
     return result;
 }

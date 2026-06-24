@@ -24,7 +24,7 @@ bool IDAStar::search(
 
     int cost =
         node.depth +
-        heuristic.misplacedStickers(node.cube) / 8;
+        heuristic.misplacedStickers(node.cube) / 4;
 
     if(cost > threshold)
     {
@@ -79,7 +79,7 @@ vector<Move> IDAStar::solve(Node root)
     stats.nodesExpanded = 0;
 
     int threshold =
-        heuristic.misplacedStickers(root.cube) / 8;
+        heuristic.misplacedStickers(root.cube) / 4;
 
     vector<Move> solution;
 

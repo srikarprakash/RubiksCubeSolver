@@ -39,7 +39,7 @@ bool IDAStar::search(Node n, int t, vector<Move>& s) {
     MoveGenerator m;
     vector<Node> k = m.generateChildren(n);
 
-    for (Node p : k) {
+    for (const Node& p : k) {
         if (search(p, t, s)) return true;
     }
 

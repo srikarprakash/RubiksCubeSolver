@@ -4,53 +4,45 @@
 #include "../cube/Cube.h"
 #include "../cube/Moves.h"
 
-#include <unordered_map>
 #include <vector>
 #include <cstdint>
 #include <string>
 
 using StateKey = uint64_t;
 
-struct DBEntry
-{
-    uint32_t parentIndex;
-
-    Move moveToParent;
+struct DBEntry {
+    uint32_t pIdx;
+    Move m;
 };
 
-class StateDatabase
-{
+// Flat array slot for Open Addressing Linear Probing
+struct MapSlot {
+    uint64_t k;
+    uint32_t v;
+};
+
+class StateDatabase {
 public:
-
-    void build(int maxDepth);
-
-    bool contains(const Cube& cube) const;
-
-    std::vector<Move> getSolution(
-        const Cube& cube
-    ) const;
-
+    void build(int md);
+    bool contains(const Cube& cb) const;
+    std::vector<Move> getSolution(const Cube& cb) const;
     size_t size() const;
-
-    bool save(const string& filename) const;
-    bool load(const string& filename);
-    int getDistance(
-    const Cube& cube
-    ) const;
+    bool save(const string& fn) const;
+    bool load(const string& fn);
+    int getDistance(const Cube& cb) const;
 
 private:
+    StateKey getKey(const Cube& cb) const;
+    
+    std::vector<MapSlot> table;
+    uint64_t mask;
+    size_t cnt;
 
-    StateKey getKey(
-        const Cube& cube
-    ) const;
-
-    std::unordered_map<
-        StateKey,
-        uint32_t
-    > lookup;
+    void initTable(size_t cap);
+    void insertMap(uint64_t k, uint32_t v);
+    uint32_t findMap(uint64_t k) const;
 
     std::vector<DBEntry> entries;
-
     std::vector<StateKey> keys;
 };
 

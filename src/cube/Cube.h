@@ -3,12 +3,12 @@
 
 #include <vector>
 #include <string>
+#include <cstdint>
 #include "Moves.h"
 
 using namespace std;
 
-class Cube
-{
+class Cube {
 private:
     char U_face[9];
     char D_face[9];
@@ -16,16 +16,25 @@ private:
     char B_face[9];
     char L_face[9];
     char R_face[9];
-    vector<Move> moveHistory;
 
     void rotateFaceClockwise(char face[9]);
+    void recomputeHash();
+    
+    // Zobrist Incremental Helpers
+    uint64_t hash_U() const;
+    uint64_t hash_D() const;
+    uint64_t hash_R() const;
+    uint64_t hash_L() const;
+    uint64_t hash_F() const;
+    uint64_t hash_B() const;
 
 public:
-    bool rec;
+    uint64_t hash; // Precomputed hash
     Cube();
 
     void display() const;
     void applyMove(Move move);
+    
     void U(); void Ui(); void U2();
     void D(); void Di(); void D2();
     void R(); void Ri(); void R2();
@@ -36,7 +45,6 @@ public:
     string encodeState() const;
     bool isSolved() const;
     void reset();
-    void printMoveHistory() const;
 
     const char* getUFacePtr() const { return U_face; }
     const char* getDFacePtr() const { return D_face; }
@@ -51,8 +59,6 @@ public:
     vector<char> getBFace() const { return vector<char>(B_face, B_face + 9); }
     vector<char> getLFace() const { return vector<char>(L_face, L_face + 9); }
     vector<char> getRFace() const { return vector<char>(R_face, R_face + 9); }
-
-    const vector<Move>& getMoveHistory() const;
 };
 
 #endif

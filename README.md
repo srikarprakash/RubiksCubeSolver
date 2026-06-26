@@ -1,0 +1,3 @@
+Compile instructions:
+g++ -std=c++17 -Ofast -march=native -mtune=native -flto -funroll-loops -fomit-frame-pointer -DNDEBUG src/main.cpp src/cube/Cube.cpp src/cube/Moves.cpp src/database/StateDatabase.cpp src/search/DFS.cpp src/search/Heuristic.cpp src/search/IDAStar.cpp src/search/IDDFS.cpp src/search/MoveGenerator.cpp src/search/Node.cpp src/solver/Solver.cpp src/utils/Scrambler.cpp -o benchmark
+.\benchmark  

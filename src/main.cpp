@@ -34,9 +34,17 @@ int main()
     bench << "RUBIK'S CUBE SOLVER BENCHMARK\n";
     bench << "=========================================\n\n";
 
-    const int testsPerDepth = 10;
+    // ======================
+// Benchmark Configuration
+// ======================
+const int START_DEPTH = 11;
+const int END_DEPTH = 14;
+const int TESTS_PER_DEPTH = 5;
+const bool SAVE_RESULTS = true;
 
-    for (int depth = 11; depth <= 13; depth++)
+const int testsPerDepth = TESTS_PER_DEPTH;
+
+    for (int depth = START_DEPTH; depth <= END_DEPTH; depth++)
     {
         cout << "#########################################\n";
         cout << "SCRAMBLE LENGTH = " << depth << "\n";
@@ -54,6 +62,9 @@ int main()
         long long totalSolutionLength = 0;
         int solved = 0;
 
+        long long maxNodes = -1;
+        std::vector<Move> hardestScramble;
+
         long long bestTime = LLONG_MAX;
         long long worstTime = 0;
 
@@ -69,6 +80,12 @@ int main()
 
             SolveResult result =
                 solver.solve(cube);
+
+            if (result.solved && result.nodesExpanded > maxNodes)
+            {
+                maxNodes = result.nodesExpanded;
+                hardestScramble = scramble;
+            }
 
             cout << "Test "
                  << setw(2)
@@ -187,6 +204,14 @@ int main()
                   << setprecision(2)
                   << (double)totalSolutionLength / solved
                   << "\n\n";
+        }
+
+        if (!hardestScramble.empty())
+        {
+            cout << "Hardest Scramble : ";
+            for (Move m : hardestScramble)
+                cout << moveToString(m) << ' ';
+            cout << "\nHardest Nodes    : " << maxNodes << "\n";
         }
 
         cout << "\n\n";

@@ -294,9 +294,9 @@ benchmark.exe
 
 # Author
 
-**Seeram Rama Prajval**
+**Kamarsu Srikar Prakash**
 
-B.Tech – Electronics & Electrical Communication Engineering
+B.Tech – Artificial Intelligence
 
 Indian Institute of Technology Kharagpur
 
